@@ -1,0 +1,80 @@
+import { useRef, useState } from "react"
+
+
+
+
+const Uncontrolled =()=>{
+
+    const emailRef=useRef()
+    const passwordRef=useRef()
+    const[error,setError]=useState("")
+
+
+const handleSubmit=(event)=>{
+
+        event.preventDefault()
+
+
+        console.log(emailRef.current.value)
+        console.log(passwordRef.current.value)
+
+        if(passwordRef.current.value.length<3){
+            alert("please enter more than 3 characters")
+        }else{
+
+            const userInfo={
+                username:emailRef.current.value,
+                password:passwordRef.current.value
+            }
+            hitServer(userInfo)
+
+          }
+       }
+
+    const hitServer =(data)=>{
+        fetch('https://dummyjson.com/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+.then(res => res.json())
+.then(res=>{
+  if(res.message){
+    alert(res.message)
+    setError(res.message)
+
+  }else{
+    alert("successfull login")
+    setError("")
+  }
+})
+.catch(err=>console.log(err))
+    }
+
+
+    return(
+        <>
+     
+        <form  onSubmit={handleSubmit} >
+  
+  <div className="mb-3">
+    <label className="form-label">Enter Your Value</label>
+    <input type="text" className="form-control" id="pwd" placeholder="Enter password" name="pswd" ref={passwordRef} style={{width:"300px"}}/>
+  </div>
+  
+  {
+    error ?
+    <h2 style={{color:"red"}} >{error}</h2>
+    :
+    null
+  }
+  <button type="submit" className="btn btn-primary">Submit</button>
+</form>
+</>
+        
+    )
+}
+
+export default Uncontrolled
+
+
