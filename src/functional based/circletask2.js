@@ -1,80 +1,38 @@
-import { useRef, useState } from "react"
+import { useState } from "react";
 
+function RotateCircle() {
+  const [rotateCircle, SetrotateCircle] = useState(0);
 
-
-
-const Uncontrolled =()=>{
-
-    const emailRef=useRef()
-    const passwordRef=useRef()
-    const[error,setError]=useState("")
-
-
-const handleSubmit=(event)=>{
-
-        event.preventDefault()
-
-
-        console.log(emailRef.current.value)
-        console.log(passwordRef.current.value)
-
-        if(passwordRef.current.value.length<3){
-            alert("please enter more than 3 characters")
-        }else{
-
-            const userInfo={
-                username:emailRef.current.value,
-                password:passwordRef.current.value
-            }
-            hitServer(userInfo)
-
-          }
-       }
-
-    const hitServer =(data)=>{
-        fetch('https://dummyjson.com/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data)
-})
-.then(res => res.json())
-.then(res=>{
-  if(res.message){
-    alert(res.message)
-    setError(res.message)
-
-  }else{
-    alert("successfull login")
-    setError("")
-  }
-})
-.catch(err=>console.log(err))
+  const handleCircle = () => {
+    const inputNumber = prompt("Enter the number of circles:");
+    const parsedNumber = parseInt(inputNumber);
+    if (!isNaN(parsedNumber) && parsedNumber > 0) {
+      SetrotateCircle(parsedNumber);
+    } else {
+      alert("Please enter a valid positive number.");
     }
+  };
 
-
-    return(
-        <>
+  return (
+    <>
+      <button onClick={handleCircle}>Click here</button>
      
-        <form  onSubmit={handleSubmit} >
-  
-  <div className="mb-3">
-    <label className="form-label">Enter Your Value</label>
-    <input type="text" className="form-control" id="pwd" placeholder="Enter password" name="pswd" ref={passwordRef} style={{width:"300px"}}/>
-  </div>
-  
-  {
-    error ?
-    <h2 style={{color:"red"}} >{error}</h2>
-    :
-    null
-  }
-  <button type="submit" className="btn btn-primary">Submit</button>
-</form>
-</>
-        
-    )
+      <div style={{ display: "flex", marginTop: "20px" }}>
+        {[...Array(rotateCircle)].map((_, index) => (
+          <div
+            key={index}
+            style={{
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              backgroundColor: "blue",
+              margin: "5px",
+            }}
+          ></div>
+        ))}
+      </div>
+    </>
+  );
 }
 
-export default Uncontrolled
-
-
+export default RotateCircle;

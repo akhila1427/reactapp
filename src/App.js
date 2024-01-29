@@ -247,12 +247,12 @@
 // export default App;
 // ===================================================
 // import RegistrationForm from "./functional based/hookday2.js/registrationform";
-import CircleTask2 from "./functional based/circletask2";
+import RotateCircle from "./functional based/circletask2";
 function App() {
   return (
     <div>
       {/* <RegistrationForm/> */}
-      <CircleTask2/>
+    <RotateCircle/>
     </div>
   );
 }

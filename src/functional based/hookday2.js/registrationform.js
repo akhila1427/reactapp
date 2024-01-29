@@ -35,9 +35,11 @@ if(result){
     setPasswordError("")
 }
  else {
-    setPasswordError("")
+    setPasswordError("error")
  }  
 }
+
+
 const EmailHandler=(event)=>{
 setEmail(event.target.value)
 // console.log(event.target.value)
@@ -56,10 +58,28 @@ const GenderHandler = (event) => {
   };
 
 
-  const confirmPassHandler = (event) => {
-    setConfirmPassword(event.target.value);
-    console.log(event.target.value)
-};
+  
+
+const confirmPassHandler = (event) => {
+
+    let pass = event.target.value
+
+    const confirmPasswordValue = event.target.value;
+
+console.log(confirmPasswordValue);
+
+    if (confirmPasswordValue===pass) {
+        setConfirmPasswordError("");
+
+
+    } else {
+        setConfirmPasswordError("Passwords do not match");
+    }
+
+    setConfirmPassword(confirmPasswordValue);
+    console.log(confirmPasswordValue);
+}
+
 
 function validateEmail(email) {
 
@@ -73,13 +93,12 @@ function validateEmail(email) {
 }
 
 
-
 function validatePassword(psw) {
     let msg = true;
 
     switch (true) {
         case (psw.length < 8 || psw.length > 13):
-            msg = false;
+            msg =  true;
             break;
         case !(/[0-9]/.test(psw)):
             msg = false;
@@ -96,7 +115,6 @@ function validatePassword(psw) {
         default:
             break;
     }
-
     return msg;
 }
 
@@ -144,7 +162,7 @@ const handleSubmit = (event) => {
             <label htmlFor="pwd" className="form-label"> PASSWORD:</label>
             <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="pswd" value={Password} onChange={userPasswordHandler}/>
             {
-            PasswordError?
+            PasswordError ?
         <h2 style={{color:"red"}}>{PasswordError}</h2>:
         null
           }
@@ -155,11 +173,13 @@ const handleSubmit = (event) => {
           <div className="mb-3">
   <label htmlFor="confirmPwd" className="form-label">Confirm Password:</label>
   <input type="password"  className="form-control" id="confirmPwd" placeholder="Confirm password" name="confirmPwd" value={ConfirmPassword} onChange={confirmPassHandler}/>
+
   {
         ConfirmPasswordError
            ?
-        <h2 style={{color:"red"}}>{ConfirmPasswordError}</h2>:
-        null
+         
+        <h2 style={{color:"red"}}>{ConfirmPasswordError}</h2>: null
+        
           }
 </div>
 
