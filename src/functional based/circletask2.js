@@ -25,7 +25,7 @@ function RotateCircle() {
               width: "50px",
               height: "50px",
               borderRadius: "50%",
-              backgroundColor: "blue",
+              backgroundColor: "lightsalmon",
               margin: "5px",
             }}
           ></div>
